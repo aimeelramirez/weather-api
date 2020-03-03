@@ -63,6 +63,7 @@ app.use(express.static('public/js'));
                  address:req.query.address
                  //weather?address=north/\providence
              })
+            // console.log(latitude, longitude)
          })
     })
   
