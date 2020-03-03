@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+<title>
+    This is an example express page.
+</title>
+<link rel="stylesheet" href="./styles.css">
+<script rel="text/javascript" src="./index.js"></script>
+
+</head>
+<body>
+    <div class="main">
+       {{>header}}
+       <p> use this site to get your weather.</p>
+   <form>
+      <input placeholder="Location">
+      <button onclick="submit">Search</button>
+   </form>
+
+   <p id="message-1"></p>
+   <p id="message-2"></p>
+    </div>
+       <hr/>
+      
+        <table id="table">
+        <tr>
+        <th>{{title}}</th>
+        </tr>
+        <tr>
+        <td id="col">{{name}}</td>
+        <tr>
+        <td id ='col'>{{occupation}}</td>
+        </tr>
+        </tr>
+        </table>
+  <div id="wrapper">
+     {{!-- get a loader before images on page --}}
+    {{!-- <img src="./chalo-garcia-z16K3-ZNlQA-unsplash.jpg"><img src="./headway-5QgIuuBxKwM-unsplash.jpg"><img src="./nordwood-themes-q8U1YgBaRQk-unsplash.jpg"><img src="./annie-spratt-QckxruozjRg-unsplash.jpg"> --}}
+    </div>
+      
+ 
+ {{>footer}}
+</body>
+
+
+</html>

@@ -1,0 +1,19 @@
+> node --inspect-brk  app.js add --title="Courses" --body="Node.js"
+
+if on error use above.
+
+if not
+then use this
+
+> node inspect app.js  add --title="Course" --body="Node.js"
+if to be read on error is: 
+> Timeout (<number>) waiting for <localhost> to be free.
+
+*don't forget to rebuild the project check for node_module.
+
+error check 
+
+>node app.js  add --title="test" --body="test"
+when checking if the var is defined for every file.
+
+
