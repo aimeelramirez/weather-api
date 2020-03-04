@@ -93,7 +93,7 @@ app.route("/products").get(function (req, res) {
     
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'Table Index',
+        title: 'Weather',
         name: 'Aimee Ramirez',
         occupation: 'Software Engineer (intern)'
     })

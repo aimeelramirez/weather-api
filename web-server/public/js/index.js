@@ -1,5 +1,6 @@
 console.log('this is a js file')
 window.onload = () => {
+  
     // document.querySelector("#search").innerHTML = '<div class="outer">' +
     // '<input type="text" id="input"/>'
     // +'</div>';

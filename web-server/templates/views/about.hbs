@@ -7,8 +7,17 @@
 <script rel="text/javascript" src="./index.js"></script>
 </head>
 <body>
-      {{>header}}
-    
+     <div class="main">
+       {{>header}}
+       <h4> Use this site to get your weather.</h4>
+   <form>
+      <input placeholder="Location">
+      <button onclick="submit">Search</button>
+   </form>
+
+   <span id="message-1"></span>
+   <span id="message-2"></span>
+    </div>
        <hr/>
     {{!-- <img src="./header.jpg"> --}}
 
