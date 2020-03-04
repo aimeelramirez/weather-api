@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
 body {
-    display: flex;
+    display:inline-block;
     flex-direction: column;
     margin-left: 4rem;
     min-height: 100vh;
@@ -10,11 +10,17 @@ header {
     margin:auto;
     margin-top: 16px;
     margin-bottom:48px;
+    
+}
+h4{
+    font-family: 'Roboto Mono';
+    font-size: .8em;
 }
 
 a {
     color:#888888;
-    margin-right: 16px;
+    padding: 16px;
+    text-align: center;
     text-decoration: none;
 }
 a:hover{
@@ -22,17 +28,18 @@ a:hover{
 }
 h1 {
     font-size: 64px;
-    color:navy;
+    color:rgb(93, 93, 190);
     font-family: 'Roboto Mono';
     margin-bottom: 16px;
+    background-color:#f1f1f1;
 
 }
-.wrapper img{
+/* .wrapper img{
 
     padding: 5px;
     display:inline-block;
   
-}
+} */
 img {
     float:  left;
     width:  400px;
@@ -40,7 +47,10 @@ img {
     background-size: cover;
     /* max-width: 900px; */
 }
-
+#table{
+    width: 250px;
+    padding: 16px;
+}
 th{
     background-color: #dbdbdb;
   
@@ -50,9 +60,13 @@ td {
     text-align: center;
 }
 td[id = "col"] {
-  color:black;
-  border:1px solid #b6b6b6;
-  display: flex;
+    width: 250px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    margin: 10px;
+    box-sizing: border-box;
  
 }
 
@@ -65,26 +79,70 @@ td[id = "col"] {
 input {
     border:1px solid #cccccc;
     padding: 8px;
+
 }
 
-button {
-    /* cursor:pointer; */
+/* button {
     border:1px solid #888888;
     background:#888888;
     color: white;
     padding:8px;
+} */
+
+.outer { 
+    /* display:inline-block; */
+    width: 250px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    margin: 10px;
+    box-sizing: border-box;
+
 }
+button {
+    /* margin: 10%; */
+    z-index:0;
+    white-space: nowrap;
+    border: 0;
+    outline: 0;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 14px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    background-color: #4e57c0;
+    text-decoration: none;
+    -webkit-transition: all 150ms ease;
+    transition: all 150ms ease;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    color: #fff;
+    cursor: pointer;
+    background-color: #5672d1;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, .10), 0 3px 6px rgba(0, 0, 0, .08);
+  }
+
 @media only screen and (max-width: 1000px) {
    body{
        margin-left: 1rem;
    }
-    img {
+    /* img {
         width:  400px;
         height: 350px;
         max-width:100%;
         /* max-width: 600px; */
         
-    }
+  
    
 }
 

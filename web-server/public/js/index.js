@@ -37,7 +37,8 @@ const getCol = () => {
            //document.querySelector('p')
            messageOne.textContent = data.location;
            messageTwo.textContent = data.forecast;
-         // messageOne.innerHTML = '<div class=outer>' + messageOne.textContent +'</div>';
+           document.querySelector("#message-1").innerHTML = '<h2>Location:</h2><div class=outer>' + messageOne.textContent +'</div>';
+           document.querySelector("#message-2").innerHTML = '<h2>Temperature:</h2><div class=outer>' + messageTwo.textContent +'</div>';
 
        }
       })

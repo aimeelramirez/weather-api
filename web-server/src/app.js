@@ -93,7 +93,7 @@ app.route("/products").get(function (req, res) {
     
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'Weather',
+        title: 'Table Index',
         name: 'Aimee Ramirez',
         occupation: 'Software Engineer (intern)'
     })
@@ -111,7 +111,7 @@ app.get('/about', (req, res) => {
     res.render('about', {
         title: 'About',
         name: 'Aimee Ramirez',
-        occupation: 'abouter'
+        occupation: 'Abouter'
     })
 })
 
