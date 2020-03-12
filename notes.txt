@@ -30,6 +30,13 @@ db.dropDatabase()
 
 db.getCollection('users').find({})
 
+
+ //header jwt ex: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJ0MjAzIiwiaWF0IjoxNTg0MDM2ODYzfQ.6Ecmkg3lcjT9FPzwQDDhQdr0BPC1cCcsZi_wlMkvHno
+    //example of payload on body.eyJfaWQiOiJ0MjAzIiwiaWF0IjoxNTg0MDM2OTM4fQ.signature
+    // eyJfaWQiOiJ0MjAzIiwiaWF0IjoxNTg0MDM2OTM4fQ = base64 
+    //check out base64decode.org
+    //{"_id":"t203","iat":1584036938}
+
 -----------------------------------------------------
 
 Mongoose API
