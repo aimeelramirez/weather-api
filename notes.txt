@@ -23,6 +23,8 @@ Mongo
 
 >C:\Mongodb\bin>mongod --dbpath=C:\MongoDBData
 
+use <database_name>
+db.dropDatabase()
 
 
 

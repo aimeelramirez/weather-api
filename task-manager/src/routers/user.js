@@ -10,6 +10,8 @@ const router = new express.Router();
 
 router.post('/users',  async (req, res)=>{
     const user = new User(req.body)
+    //catching user
+    //console.log(user)
     try{
         await user.save()
         res.status(201).send(user)
@@ -24,6 +26,19 @@ router.post('/users',  async (req, res)=>{
     // })
     // console.log(req.body)
     // res.send('testing');
+})
+
+router.post('/users/login', async (req, res)=>{
+    try{
+     
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        res.send(user)
+        console.log('logged in')
+    } catch(e){
+        console.log(e)
+        res.status(400).send()
+    }
+    
 })
 router.get('/users', async(req, res)=>{
     //res.send('this is a users endpoint');
