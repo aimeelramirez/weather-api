@@ -17,3 +17,23 @@ error check
 when checking if the var is defined for every file.
 
 
+-----------------------------------------------------
+
+Mongo 
+
+>C:\Mongodb\bin>mongod --dbpath=C:\MongoDBData
+
+
+
+
+db.getCollection('users').find({})
+
+-----------------------------------------------------
+
+Mongoose API
+
+SQL 
+====================
+SELECT name, database_id, create_date  
+FROM sys.databases ;  
+GO  

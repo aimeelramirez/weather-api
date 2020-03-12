@@ -20,18 +20,50 @@ MongoClient.connect(connectionURL,{ useUnifiedTopology: true } , (error, client)
         return console.log('unable to connect to database');
     }
    const db = client.db(databaseName);
-     db.collection('users').updateOne({
-        _id: new ObjectID("5e5ff339972d6d432cdbe504")
-    }, {
-        $set:{
-            name:"Aaron",
-            age:30
-        }
-    }).then((result)=>{
-        console.log(result)
-    }).catch((error)=>{
-        console.log(error)
-    })
+   db.collection('tasks').deleteOne({
+       description:"Clean the house"
+   }).then((result)=>{
+       console.log(result)
+   }).catch((error)=>{
+       console.log(error)
+   })
+//    db.collection('users').deleteMany({
+//        age:31
+//    }).then((result)=>{
+//        console.log(result)
+//    }).catch((error)=>{
+//        console.log(error)
+//    })
+
+//    db.collection('tasks').updateMany({
+        
+//     completed: false
+//    }, {
+//        $set:{
+//            completed:true
+//        }
+//    }).then((result)=>{
+//         console.log(result.modifiedCount)
+//     }).catch((error)=>{
+//         console.log(error)
+//     })
+
+
+    //  db.collection('users').updateOne({
+    //     _id: new ObjectID("5e5ff339972d6d432cdbe504")
+    // }, {
+    //     // $set:{
+    //     //     name:"Aaron",
+    //     //     age:30
+    //     // }
+    //     $inc:{
+    //         age:1
+    //     }
+    // }).then((result)=>{
+    //     console.log(result)
+    // }).catch((error)=>{
+    //     console.log(error)
+    // })
 
 
     
