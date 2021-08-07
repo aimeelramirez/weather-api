@@ -1,45 +1,48 @@
-<!DOCTYPE html>
+{{!-- <!DOCTYPE html> --}}
+
 <head>
-<title>
-    This is an example express page.
-</title>
-<link rel="stylesheet" href="./styles.css">
-<script rel="text/javascript" src="./index.js"></script>
+    <title>
+        This is an example express page.
+    </title>
+
+    <link rel="stylesheet" href="./styles.css">
+
+    <script rel="text/javascript" src="./index.js"></script>
 
 </head>
+
 <body>
     <div class="main">
-       {{>header}}
-       <h4> Use this site to get your weather.</h4>
-   <form>
-      <input placeholder="Location">
-      <button onclick="submit">Search</button>
-   </form>
+        {{>header}}
+        <span id="notify"></span>
 
-   <span id="message-1"></span>
-   <span id="message-2"></span>
     </div>
-       <hr/>
-      
-        <table id="table">
+    <table id="table">
         <tr>
-        <th>{{title}}</th>
+            <th>{{title}}</th>
         </tr>
         <tr>
-        <td id="col">{{name}}</td>
-        <tr>
-        <td id ='col'>{{occupation}}</td>
+            <td id="col">{{message}}</td>
         </tr>
-        </tr>
-        </table>
-  <div id="wrapper">
-     {{!-- get a loader before images on page --}}
-    {{!-- <img src="./chalo-garcia-z16K3-ZNlQA-unsplash.jpg"><img src="./headway-5QgIuuBxKwM-unsplash.jpg"><img src="./nordwood-themes-q8U1YgBaRQk-unsplash.jpg"><img src="./annie-spratt-QckxruozjRg-unsplash.jpg"> --}}
+    </table>
+    <hr />
+
+    <img class="images" id="cartId-1" src="strawberry2.jpg" alt="a strawberry close-up" name="Strawberry" />
+    <img class="images" id="cartId-2" src="pineapple2.jpg" alt="a pineapple close-up" name="Pineapple" />
+
+
+    <div id="wrapper">
+     <button id="addAll" type="submit">Add All to Cart</button>
+     {{#if sess.itemsInCart}}
+     <button id="removeAll" type="submit">Remove All from Cart</button>
+     {{/if}}
+     {{!-- If the cart has an item in it - show a button next to the Add All To Cart button which says Remove All Items. --}}
     </div>
-      
- 
- {{>footer}}
+
+    {{>footer}}
 </body>
+<script>
 
+</script>
 
 </html>

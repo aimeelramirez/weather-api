@@ -1,0 +1,56 @@
+{{!-- <!DOCTYPE html> --}}
+
+<head>
+    <title>
+        This is an example express page.
+    </title>
+    <link rel="stylesheet" href="./styles.css">
+    <script rel="text/javascript" src="./index.js"></script>
+
+</head>
+
+<body>
+    <div class="main">
+        {{>header}}
+        <span id="notify"></span>
+        <p>{{message}}</p>
+
+    </div>
+    {{#if category}}
+    <h3>Cart Items:</h3>
+
+    <p>You have a total of {{category.length}} in your cart.</p> 
+    <div id="wrapper">
+     {{#if sess.itemsInCart}}
+     <button id="removeAll" type="submit">Remove All from Cart</button>
+     {{/if}}
+    {{!-- If the cart has an item in it - show a button next to the Add All To Cart button which says Remove All Items. Thought this was useful too.--}}
+
+    </div>
+    {{/if}}
+    <hr />
+    <section class="cards">
+         {{#each category}}
+     <article class="card">
+           
+
+       <header>
+            <h2>{{query.name}}</h2>
+        </header>  
+      <img src={{query.url}} alt={{query.description}} />
+         <div class="content">
+            <p> The idea of reaching the North Pole by means of balloons appears to have been entertained many years ago. </p>
+        </div>
+       
+     </article>
+      {{/each}}
+    </section>
+
+
+    {{>footer}}
+</body>
+<script>
+
+</script>
+
+</html>

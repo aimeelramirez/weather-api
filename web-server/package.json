@@ -4,18 +4,25 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "sh build.sh",
+    "start": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "hbs": "^4.1.0",
-    "heroku": "^7.39.0",
-    "mongo": "^0.1.0",
-    "mongodb": "^3.5.4",
-    "nodemon": "^2.0.2",
-    "request": "^2.88.2"
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.12",
+    "path": "^0.12.7",
+    "request": "^2.88.2",
+    "startbootstrap-simple-sidebar": "^6.0.2"
+  },
+  "author": "aimee ramirez",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }

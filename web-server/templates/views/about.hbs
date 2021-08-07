@@ -1,43 +1,42 @@
 <!DOCTYPE html>
+
 <head>
-<title>
-    This is an example express page.
-</title>
-<link rel="stylesheet" href="./styles.css">
-<script rel="text/javascript" src="./index.js"></script>
+   <title>
+      This is an example express page.
+   </title>
+   <link rel="stylesheet" href="./styles.css">
+   {{!-- <script rel="text/javascript" src="./index.js"></script> --}}
 </head>
+
 <body>
-     <div class="main">
-       {{>header}}
-       <h4> Use this site to get your weather.</h4>
-   <form>
-      <input placeholder="Location">
-      <button onclick="submit">Search</button>
-   </form>
-
-   <span id="message-1"></span>
-   <span id="message-2"></span>
-    </div>
-       <hr/>
-    {{!-- <img src="./header.jpg"> --}}
+    <div class="main">
+        {{>header}}
+        <span id="notify"></span>
+   <div>
+  {{#if category}}
+    <h3>Cart Items:</h3>
+    <p>You have a total of {{category.length}} in your cart.</p>
+  {{/if}}
+</div>
+   <hr />
+   {{!-- <img src="./header.jpg"> --}}
 
 
 
- <table id="table">
-<tr>
-<th>{{title}}</th>
-</tr>
-<tr>
-<td id="col">{{name}}</td>
-<tr>
-<td id ='col'>{{occupation}}</td>
-</tr>
-</tr>
-</table>
+   <table id="table">
+      <tr>
+         <th>{{title}}</th>
+      </tr>
+      <tr>
+            <td id="col">{{message}}</td>
+      <tr>
+      </tr>
+      </tr>
+   </table>
 
 
-{{>footer}}
-       
+   {{>footer}}
+
 </body>
 
 
