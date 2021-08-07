@@ -60,8 +60,39 @@ window.onload = () => {
 
   }
   const successBanner = (event, store) => {
-
+    // 
+    //https://store-l5vdkepxm9.mybigcommerce.com
+    ///login.php?action=passwordless_login
     // https://{{domain}}/cart.php?action=add&product_id={{id}}&qty={{qty}}
+
+    ////https://store-l5vdkepxm9.mybigcommerce.com/api/storefront/carts
+    //https://api.bigcommerce.com/stores/{$$.env.store_hash}/v3/catalog/products
+    //https://https://api.bigcommerce.com/stores/l5vdkepxm9/v3/api/storefront/carts
+    //https://store-l5vdkepxm9.mybigcommerce.com/api/storefront/carts
+    /**
+     *  "list_price": 100,
+             "name": "Strawberry",
+             "parent_id": null,
+             "product_id": 112,
+             "quantity": 5,
+             "sale_price": 100,
+             "sku": "abc-123",
+             "taxable": true,
+             "url": "https://test-store2426.mybigcommerce.com/strawberry/",
+             "variant_id": 77
+     */
+    /*{
+  "line_items": [
+    {
+      "productId":112,
+      "quantity": 5,
+      "name": "Strawberry",
+      "price": 100
+    }
+  ]
+}
+    
+    */
     event.preventDefault()
     // console.log(JSON.stringify(store))
     fetch('https://localhost:8080/cart/update', {
@@ -85,8 +116,9 @@ window.onload = () => {
     cartItem = {
       description: target.alt,
       url: target.src,
-      name: target.name
-
+      name: target.name,
+      price: target.price,
+      weight: target.weight
 
     }
     console.log(cartItem);
@@ -142,7 +174,7 @@ window.onload = () => {
          */
         getNotify.innerHTML = "";
         //to get the button on hbs conditions
-        window.location.reload();
+        // window.location.reload();
 
       }, 4000)
     }
@@ -178,4 +210,7 @@ window.onload = () => {
       }, false);
     }
   }
+
+
+
 }

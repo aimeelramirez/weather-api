@@ -10,13 +10,18 @@ const controller = require('./utils/controller');
 const apiCall = require('./utils/controller')
 const session = require('express-session')
 let sess;
+
+
+
+
 // app.use(session({ secret: "secret", saveUninitialized: true, resave: false }))
 // app.set('trust proxy', 1) // trust first proxy
 app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: true
-    // cookie: { secure: true }
+
+
 }))
 //app.com // figurative domain 
 //routes
@@ -61,7 +66,9 @@ app.use(express.urlencoded({
 }));
 
 let body = []
+let lineItems = []
 
+require('dotenv').config({ path: "../.env" });
 
 
 app.get('/index', (req, res) => {
@@ -83,8 +90,10 @@ app.get('/index', (req, res) => {
     // next()
 })
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     sess = req.session
+    // sess.cartId = null
+
     if (sess.itemsInCart == true) {
         res.render('index', {
             title: 'DASHBOARD',
@@ -142,28 +151,231 @@ const routes = (app) => {
     })
     app.get("/cart/update", controller.cartStorage)
 
-    app.route('/cart/update').post((req, res, next) => {
+    app.route('/cart/update').post(async (req, res, next) => {
         console.log('Sub Pages - Cart Update');
         //set sess
         sess = req.session
-        sess.itemsInCart = true
         sess.body = req.body
+        // sess.item = ""
+        // sess.cartId = ""
+        //to create an item
+        // createItem={
+        //     'name': req.body.query.name,
+        //     'price': req.body.query.price,
+        //     'weight': 10,
+        //     'price': 100,
+        //     'description': req.body.query.description,
+        //     "type": "physical"
+        // "images": [
+        //     {
+        //         "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Anglel_Bless_Legendary_Hills_1_m%C4%9Bs%C3%ADc_st%C3%A1%C5%99%C3%AD.jpg"
+        //     }
+        // ]
+        // }
+        let optionGet = {
+            uri: `https://api.bigcommerce.com/stores/${process.env.STORE_HASH}/v3/catalog/products`,
+            method: 'GET',
+            headers: {
+                "X-Auth-Token": `${process.env.X_AUTH_TOKEN}`
+            }
+        }
+
+        // make api promise
+        let getProducts = await apiCall.getApiCall(optionGet);
+        // console.log("get products ==>> ", JSON.parse(getProducts))
+        let setProducts = JSON.parse(getProducts)
+        // sess.catalog = setProducts.data
+        sess.itemsInCart = true
+
+        if (sess.cartId !== undefined) {
+            console.log(sess.item.line_items)
+
+
+            if (req.body.query.name === sess.lastItem) {
+                for (let i = 0; i < setProducts.data.length; i++) {
+
+                    if (req.body.query.name === setProducts.data[i].name) {
+                        console.log(req.body)
+                        if (sess.body.length !== 0) {
+                            //add to the last item
+
+                            for (let p = 0; p < sess.category.length; p++) {
+
+
+                                if (sess.category[p].query.name === req.body.query.name) {
+                                    //add to the last item
+                                    if (sess.category[sess.category.length - 1].query.name === req.body.query.name) {
+
+                                        console.log('same')
+                                        let newLine = {
+                                            "product_id": lineItems[p].product_id,
+                                            "quantity": lineItems[p].quantity += 1,
+                                            "name": lineItems[p].name
+                                        }
+                                        debugger
+                                        sess.item = {
+                                            "line_items": lineItems
+
+                                        }
+                                        sess.quantity = newLine.quantity
+                                    }
+
+                                }
+
+                                else if (sess.category[p].query.name !== req.body.query.name) {
+                                    //add to the last item
+                                    for (let i = 0; i < setProducts.data.length; i++) {
+                                        let lineItem = {
+                                            "product_id": setProducts.data[i].id,
+                                            "quantity": sess.quantity + 1,
+                                            "name": setProducts.data[i].name
+                                        }
+                                        debugger
+
+                                        if (sess.lineItems !== "") {
+                                            lineItems.push(lineItem)
+
+                                            sess.lineItems = lineItems
+                                            sess.item = {
+                                                "line_items": lineItems
+                                            }
+                                        }
+
+                                        let optionCart = {
+                                            uri: `https://api.bigcommerce.com/stores/${process.env.STORE_HASH}/v3/carts`,
+                                            method: 'POST',
+                                            body: JSON.stringify(sess.item),
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                                "X-Auth-Token": `${process.env.X_AUTH_TOKEN}`
+                                            }
+                                        }
+                                        // make api promise
+
+                                        let updatedCart = await apiCall.getApiCall(optionCart);
+                                        let getCartId = JSON.parse(updatedCart);
+                                        sess.cart = getCartId.data;
+                                        console.log("Create cart id ===>  ", getCartId.data.id);
+                                        sess.cartId = getCartId.data.id;
+                                        // sess.lastItem = getCartId.data.line_items.physical_items;
+                                        sess.quantity = sess.item.line_items[0].quantity;
+                                        sess.lastItem = req.body.query.name;
+
+
+
+                                        console.log('New sess', sess)
+                                        console.log("Updated line ===>", lineItems)
+
+
+                                    }
+
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        if (sess.cartId === undefined) {
+            sess.quantity = 0;
+            for (let i = 0; i < setProducts.data.length; i++) {
+                if (req.body.query.name == setProducts.data[i].name) {
+                    let lineItem = {
+                        "product_id": setProducts.data[i].id,
+                        "quantity": sess.quantity + 1,
+                        "name": setProducts.data[i].name
+                    }
+
+                    if (sess.lineItems !== "") {
+                        lineItems.push(lineItem)
+
+                        sess.lineItems = lineItems
+                        sess.item = {
+                            "line_items": lineItems
+                        }
+                    } else {
+                        sess.item = {
+                            "line_items": [lineItem]
+                        }
+                    }
+
+                    let optionCart = {
+                        uri: `https://api.bigcommerce.com/stores/${process.env.STORE_HASH}/v3/carts`,
+                        method: 'POST',
+                        body: JSON.stringify(sess.item),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Auth-Token": `${process.env.X_AUTH_TOKEN}`
+                        }
+                    }
+                    // make api promise
+
+                    let updatedCart = await apiCall.getApiCall(optionCart);
+                    let getCartId = JSON.parse(updatedCart);
+                    sess.cart = getCartId.data;
+                    console.log("Create cart id ===>  ", getCartId.data.id);
+                    sess.cartId = getCartId.data.id;
+                    // sess.lastItem = getCartId.data.line_items.physical_items;
+                    sess.quantity = sess.item.line_items[0].quantity;
+                    sess.lastItem = req.body.query.name;
+
+
+
+                    console.log('New sess', sess)
+                    console.log("Updated line ===>", lineItems)
+
+
+                }
+
+            }
+
+        }
+
+
+
         if (sess.body !== "") {
             body.push(req.body)
             sess.category = body
         }
         next()
     })
-    app.route('/cart/update').delete((req, res, next) => {
+    app.route('/cart/update').delete(async (req, res, next) => {
         console.log('Sub Pages - Cart Delete');
         //set sess
         console.log("deleted", req.body)
         sess = req.session
         sess.itemsInCart = false
         sess.body = req.body
+        let itemDelete = ""
+        lineItems.forEach((item) => {
+            itemDelete = {
+                "cartId": sess.cartId,
+                "itemId": item.product_id
+
+            }
+        })
+        console.log('Delete itemId', itemDelete.itemId)
+
+        let optionDelete = {
+            // https://api.bigcommerce.com/stores/{$$.env.store_hash}/v3/carts/{cartId}/items/{itemId}
+            uri: `https://api.bigcommerce.com/stores/${process.env.STORE_HASH}/v3/carts/${itemDelete.cartId}/items/${itemDelete.itemId}`,
+            method: 'DELETE',
+            body: JSON.stringify(itemDelete),
+            headers: {
+                "Content-Type": "application/json",
+                "X-Auth-Token": `${process.env.X_AUTH_TOKEN}`
+            }
+        }
+        // make api promise
+        let deleteCart = await apiCall.getApiCall(optionDelete);
+        // let getCartId = JSON.parse(updatedCart);
+        console.log("deleted cart ===>  ", JSON.parse(deleteCart));
         if (sess.body !== "") {
             body = []
             sess.category = body
+            sess = ""
         }
         next()
     })
@@ -193,7 +405,7 @@ routes(app)
 //         // let items = [];
 //         // items.push({ email: req.body.email, password: req.body.password });
 //         // let options = {
-//         //     uri: 'https://or3y026ir5.execute-api.us-east-1.amazonaws.com/prod',
+//         //     uri: 'https://api.bigcommerce.com/stores/${}/v3/catalog/products',
 //         //     method: 'POST',
 //         //     body: JSON.stringify({ email: req.body.email, password: req.body.password }),
 //         //     headers: { "Content-Type": "application/json" }

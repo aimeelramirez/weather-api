@@ -69,6 +69,7 @@ exports.getApiCall = (options) => {
                     // const info = JSON.parse(body);
                     // console.log(info);
                     resolve(body)
+                    return body
                 }
             } else {
                 if (error) reject(error)
